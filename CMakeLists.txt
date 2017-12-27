@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 
-project(clustered_forward_demo_vk)
+project(vsm_vk)
 
 ############################################################
 # paths
@@ -15,8 +15,8 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 set(SCRIPT_DIR ${CMAKE_SOURCE_DIR}/script)
+set(TEXTURE_DIR ${CMAKE_SOURCE_DIR}/data/textures)
 set(MODEL_DIR ${CMAKE_SOURCE_DIR}/data/models)
-set(FONT_DIR ${CMAKE_SOURCE_DIR}/data/fonts)
 
 ############################################################
 # flags
@@ -69,7 +69,6 @@ include_directories(
     ${Vulkan_INCLUDE_DIR}
     extern/glm
     extern/gli
-    extern/imgui
     extern/assimp/include
     ${CMAKE_CACHEFILE_DIR}/extern/assimp/include 
     base
@@ -84,8 +83,8 @@ add_definitions(
     -DGLM_FORCE_DEPTH_ZERO_TO_ONE
     -D_CRT_SECURE_NO_WARNINGS
     -DNOMINMAX
+    -DTEXTURE_DIR="${TEXTURE_DIR}"
     -DMODEL_DIR="${MODEL_DIR}"
-    -DFONT_DIR="${FONT_DIR}"
     -DENABLE_VULKAN_RENDERDOC_CAPTURE
 )
 
@@ -105,4 +104,4 @@ endmacro()
 ############################################################
 
 add_subdirectory(base)
-add_subdirectory(demo)
+add_subdirectory(shadow)

@@ -10,6 +10,8 @@ public:
     bool resize_flag{false};
     //    bool quit{false};
 
+    bool pause{false};
+
     virtual uint32_t width() const=0;
     virtual uint32_t height() const=0;
     virtual const std::string& prog_name() const=0;

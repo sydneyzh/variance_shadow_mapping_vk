@@ -28,6 +28,7 @@ enum Key
     KEY_D,
     KEY_R,
     KEY_F,
+    KEY_P,
     KEY_F1,
     KEY_F2,
     KEY_F3,
@@ -146,6 +147,11 @@ public:
     virtual void on_key(Key key)
     {
         switch (key) {
+            case KEY_P:
+            {
+                p_info_base_->pause=!p_info_base_->pause;
+            }
+            break;
             case KEY_SHUTDOWN:
             case KEY_ESC:post_quit_msg();
                 break;
@@ -251,6 +257,8 @@ private:
                         break;
                     case 'F':key=KEY_F;
                         break;
+                    case 'P':key=KEY_P;
+                        break;
                     default:key=KEY_UNKNOWN;
                         break;
                 }
@@ -264,7 +272,7 @@ private:
             default:return DefWindowProc(hwnd, msg, wparam, lparam);
         }
         return 0;
-    }
+        }
 
 #else
 #error "uninplemented platform"
@@ -275,5 +283,5 @@ protected:
     Prog_info_base* p_info_base_;
     virtual void window_resize_(uint32_t width, uint32_t height)=0;
 
-};
+    };
 } // namespace base

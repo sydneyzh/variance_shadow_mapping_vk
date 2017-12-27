@@ -4,9 +4,10 @@
 #include "Timer.hpp"
 #include "Physical_device.hpp"
 #include "Device.hpp"
+#include "FPS_log.hpp"
 #include <iostream>
 #include <sstream>
-#define DEBUG_REPORT_VERBOSE false
+#define DEBUG_REPORT_VERBOSE false 
 #define MSG_PREFIX "-- PROGRAM_BASE: "
 
 namespace base
@@ -119,6 +120,7 @@ public:
 #ifdef VK_USE_PLATFORM_WIN32_KHR
         Timer timer;
         double prev_time=timer.get();
+        double prev_game_time=0.0;
 
         while (true) {
             bool quit=false;
@@ -133,12 +135,19 @@ public:
             }
             if (quit) break;
 
-            acquire_back_buffer_();
+            if (!p_info_->pause) {
+                acquire_back_buffer_();
+            }
 
             double curr_time=timer.get();
+            double delta_time=curr_time - prev_time;
             prev_time=curr_time;
 
-            present_back_buffer_(curr_time);
+            if (!p_info_->pause) {
+                fps_log_.update(delta_time);
+                prev_game_time+=delta_time;
+                present_back_buffer_(prev_game_time);
+            }
         }
 #else
 #error "uninplemented platform"
@@ -149,6 +158,7 @@ protected:
     Prog_info_base *p_info_;
     Shell_base *p_shell_;
     bool enable_validation_;
+    FPS_log fps_log_;
 
     std::vector<const char *> req_inst_layers_{};
     std::vector<const char *> req_inst_extensions_{};
@@ -162,7 +172,7 @@ protected:
     Device *p_dev_=nullptr;
 
     vk::SurfaceKHR surface_;
-    vk::SurfaceFormatKHR surface_format_{}; // color format may differ from preferred_color_format
+    vk::SurfaceFormatKHR surface_format_{};
 
     bool check_instance_layer_support_()
     {
