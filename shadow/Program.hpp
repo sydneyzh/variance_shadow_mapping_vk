@@ -359,7 +359,6 @@ private:
                 },
             };
 
-            // cluster forward subpass write
             static const vk::AttachmentReference ref_color
             {
                 0,

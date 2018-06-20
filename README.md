@@ -13,7 +13,7 @@ Render routine:
 
 A blog post discussing the details:
 
-> [Rendering dynamic cube maps for omni light shadows with Vulkan API](https://blue2rgb.wordpress.com/2017/12/26/rendering-dynamic-cube-maps-for-omni-light-shadows-with-vulkan-api/)
+> [Rendering dynamic cube maps for omni light shadows with Vulkan API](http://blue2rgb.sydneyzh.com/rendering-dynamic-cube-maps-for-omni-light-shadows-with-vulkan-api.html)
 
 Controls:
 - orbit: left/right/up/down arrow keys
